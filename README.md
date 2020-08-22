@@ -111,20 +111,20 @@ The application is processing approximately 60 records per min by setting maxRat
 # Discussion
 1. How did changing values on the SparkSession property parameters affect the throughput and latency of the data?
 
-we changed parameters and have the following results:
+  we changed parameters and have the following results:
 
-"maxOffsetsPerTrigger": 60 , "maxRatePerPartition": 30  ---> "inputRowsPerSecond" : 0.93  , "processedRowsPerSecond" : 0.90
-"maxOffsetsPerTrigger": 100 , "maxRatePerPartition": 30  ---> "inputRowsPerSecond" : 0.96 , "processedRowsPerSecond" : 0.96
-"maxOffsetsPerTrigger": 100 , "maxRatePerPartition": 50  ---> "inputRowsPerSecond" : 1.0 , "processedRowsPerSecond" :  0.95
-"maxOffsetsPerTrigger": 200 , "maxRatePerPartition": 100  ---> "inputRowsPerSecond" : 1.01 , "processedRowsPerSecond" : 0.98 
-"maxOffsetsPerTrigger": 200 , "maxRatePerPartition": 200  ---> "inputRowsPerSecond" : 0.94 , "processedRowsPerSecond" : 0.92
+  "maxOffsetsPerTrigger": 60 , "maxRatePerPartition": 30  ---> "inputRowsPerSecond" : 0.93  , "processedRowsPerSecond" : 0.90
+  "maxOffsetsPerTrigger": 100 , "maxRatePerPartition": 30  ---> "inputRowsPerSecond" : 0.96 , "processedRowsPerSecond" : 0.96
+  "maxOffsetsPerTrigger": 100 , "maxRatePerPartition": 50  ---> "inputRowsPerSecond" : 1.0 , "processedRowsPerSecond" :  0.95
+  "maxOffsetsPerTrigger": 200 , "maxRatePerPartition": 100  ---> "inputRowsPerSecond" : 1.01 , "processedRowsPerSecond" : 0.98 
+  "maxOffsetsPerTrigger": 200 , "maxRatePerPartition": 200  ---> "inputRowsPerSecond" : 0.94 , "processedRowsPerSecond" : 0.92
 
-From results we see that throughput is mainly influenced by the parameter maxRatePerPartition
+  From results we see that throughput is mainly influenced by the parameter maxRatePerPartition
 
 2. What were the 2-3 most efficient SparkSession property key/value pairs? Through testing multiple variations on values, how can you tell these were the most optimal?
 
-From analysing results we see that maxOffsetsPerTrigger and maxRatePerPartition were the most efficient properties. 
+  From analysing results we see that maxOffsetsPerTrigger and maxRatePerPartition were the most efficient properties. 
 
-optimal results are archieved with "maxOffsetsPerTrigger": 100 , "maxRatePerPartition": 50  ---> "inputRowsPerSecond" : 1.0 , "processedRowsPerSecond" :  0.95 
+  optimal results are archieved with "maxOffsetsPerTrigger": 100 , "maxRatePerPartition": 50  ---> "inputRowsPerSecond" : 1.0 , "processedRowsPerSecond" :  0.95 
 
-this throughput is suitable for kafka producting rate (1 row per second). 
+  this throughput is suitable for kafka producting rate (1 row per second). 
