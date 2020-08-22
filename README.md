@@ -43,22 +43,46 @@ Python 3.6.x or 3.7.x
 - Download Scala from the official site, or for Mac users, you can also use brew install scala, but make sure you download version 2.11.x.
 - Run below to verify correct versions: 
 
-  java -version
+  `java -version`
 
-  scala -version
+  `scala -version`
 
 - Make sure your ~/.bash_profile looks like below (might be different depending on your directory):
 
-  export SPARK_HOME=/Users/dev/spark-2.4.3-bin-hadoop2.7
+  `export SPARK_HOME=/Users/dev/spark-2.4.3-bin-hadoop2.7`
   
-  export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home
+  `export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home`
   
-  export SCALA_HOME=/usr/local/scala/
+  `export SCALA_HOME=/usr/local/scala/`
   
-  export PATH=$JAVA_HOME/bin:$SPARK_HOME/bin:$SCALA_HOME/bin:$PATH
+  `export PATH=$JAVA_HOME/bin:$SPARK_HOME/bin:$SCALA_HOME/bin:$PATH`
  
 ### For Windows:
 Please follow the directions found in this helpful StackOverflow post: https://stackoverflow.com/questions/25481325/how-to-set-up-spark-on-windows
 
 # How to run
-Install requirements using conda install --file requirements.txt if you use conda for Python. If you use pip rather than conda, then use pip install -r requirements.txt.
+Install requirements using `conda install --file requirements.txt` if you use conda for Python. If you use pip rather than conda, then use `pip install -r requirements.txt`
+
+### Run Zookeeper and kafka servers
+Use the commands below to start the Zookeeper and Kafka servers. You can find the bin and config folder in the Kafka binary that you have downloaded and unzipped.
+
+`bin/zookeeper-server-start.sh config/zookeeper.properties`
+
+`bin/kafka-server-start.sh config/server.properties`
+
+### Create a topic: 
+run `kafka-topics --create --topic "com.crime.police_call" --partitions 2 --replication-factor 1 --zookeeper localhost:2181`
+
+### Run kafka producer 
+`python kafka_server.py`
+
+This is going to create a kafka producer and ingest data into kafka topic
+
+### Run kafka consumer
+To see if the server is correctly implemented, use the command:
+`python kafka_consumer.py` 
+
+or run `bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic "com.crime.police_call" --from-beginning`
+
+Output looks like this:
+<img src='screenshots/kafka_consumer.PNG'/>
